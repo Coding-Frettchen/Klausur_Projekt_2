@@ -1,8 +1,9 @@
 from threading import Thread, Event
 import random
 from time import sleep
+import os
 Farben_Auto = [ "gruen" , "gelb", "rot", "rot+gelb", "Blinken"]
-Farben_Fuß = ["gruen", "rot", "aus"]
+Farben_Fuß = ["gruen", "rot"]
 night = False
 tick_auto = Event()
 tick_fuß = Event()
@@ -38,7 +39,7 @@ class Auto_ampel(object):
 	def schalt_beat(self):
 		while True:
 			sleep(5)
-			sleep(random.uniform(0.0002, 0.0005))
+			sleep(random.uniform(0.002, 0.005))
 			tick_auto.set()
 
 	def update(self):
@@ -70,12 +71,12 @@ class Fuß_ampel(object):
 	def schalt_beat(self):
 		while True:
 			sleep(10)
-			sleep(random.uniform(0.0002, 0.0005))
+			sleep(random.uniform(0.002, 0.005))
 			tick_fuß.set()
 
 
 	def schalten(self):
-		if self.zustand == 2:
+		if self.zustand == 1:
 			self.zustand = 0
 		else:
 			self.zustand += 1
@@ -109,6 +110,11 @@ def user_interface():
 			startzustand = int(input(f"{Name_ampel}s Start Position ('0' für gruen. '1' für rot): "))
 			Name_ampel = Fuß_ampel(startzustand)
 	while True:
-		
-# if __name__ == "__main__":
-# 	user_interface()
+		sleep(1)
+		os.system("cls")
+		print("Auto Ampeln")
+		print(f"                                           Ampel Auto N->S: {Ampel_A_Nord_Süd.Farbe}  Ampel Fußgänger: {Ampel_F_Nord_Süd.Farbe}")
+		print(f"Ampel Auto O->W: {Ampel_A_Ost_West.Farbe}  Ampel Fußgänger: {Ampel_F_Ost_West.Farbe}                    Ampel Auto W->O: {Ampel_A_West_Ost.Farbe}  Ampel Fußgänger: {Ampel_F_West_Ost.Farbe}")
+		print(f"                                           Ampel Auto S->N: {Ampel_A_Süd_Nord.Farbe}  Ampel Fußgänger: {Ampel_F_Süd_Nord.Farbe}")
+if __name__ == "__main__":
+	user_interface()
