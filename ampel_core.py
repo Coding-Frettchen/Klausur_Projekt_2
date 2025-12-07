@@ -3,7 +3,7 @@ import random
 from time import sleep
 Farben_Auto = [ "gruen" , "gelb", "rot", "rot+gelb", "Blinken"]
 Farben_Fuß = ["gruen", "rot", "aus"]
-night = True
+night = False
 tick_auto = Event()
 tick_fuß = Event()
 
@@ -21,7 +21,7 @@ class Auto_ampel(object):
 
 	def schalten(self):
 		if night:
-			self.Farbe = self.zustand(4)
+			self.Farbe = self.zustand = 4
 			return
 
 		if self.zustand == 3:
@@ -37,14 +37,14 @@ class Auto_ampel(object):
 
 	def schalt_beat(self):
 		while True:
-			sleep(2)
+			sleep(5)
 			sleep(random.uniform(0.0002, 0.0005))
 			tick_auto.set()
 
 	def update(self):
 		while True:
 			self.Farbe = Farben_Auto[self.zustand]
-			sleep(0.5)
+			sleep(0.1)
 
 
 
@@ -59,6 +59,7 @@ class Fuß_ampel(object):
 		self.beat_thread = Thread(target=self.schalt_beat)
 		self.update_thread.start()
 		self.schalten_thread.start()
+		self.beat_thread.start()
 
 	def auto_schalten(self):
 		while True :
@@ -68,7 +69,7 @@ class Fuß_ampel(object):
 
 	def schalt_beat(self):
 		while True:
-			sleep(4)
+			sleep(10)
 			sleep(random.uniform(0.0002, 0.0005))
 			tick_fuß.set()
 
@@ -82,7 +83,7 @@ class Fuß_ampel(object):
 	def update(self):
 		while True:
 			self.Farbe = Farben_Fuß[self.zustand]
-			sleep(0.5)
+			sleep(0.1)
 
 
 
@@ -107,5 +108,6 @@ def user_interface():
 			Name_ampel = input(f"Name der Fuß_Ampel_{_+1}: ")
 			startzustand = int(input(f"{Name_ampel}s Start Position ('0' für gruen. '1' für rot): "))
 			Name_ampel = Fuß_ampel(startzustand)
-user_interface()
 
+# if __name__ == "__main__":
+# 	user_interface()
