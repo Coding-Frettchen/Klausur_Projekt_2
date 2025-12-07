@@ -108,6 +108,7 @@ def user_interface():
 			Name_ampel = input(f"Name der Fuß_Ampel_{_+1}: ")
 			startzustand = int(input(f"{Name_ampel}s Start Position ('0' für gruen. '1' für rot): "))
 			Name_ampel = Fuß_ampel(startzustand)
-
+	while True:
+		
 # if __name__ == "__main__":
 # 	user_interface()
