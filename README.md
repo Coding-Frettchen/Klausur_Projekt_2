@@ -9,3 +9,5 @@ Requirments:
 
 
 JO das ist meine Arbeit alles wichtige ist in amel_core.py ignorieren sie die ui funktioniert nicht und ist von der ki der rest ist selbst geschrieben ist nicht optimiert aber sollte laufen
+Das cmd ui ist selbst gebaut last minut lösung 
+habe keine comentare geamcht fargen sie mich ruhig aus
