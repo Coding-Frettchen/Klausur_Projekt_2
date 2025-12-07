@@ -21,7 +21,7 @@ class Auto_ampel(object):
 
 	def schalten(self):
 		if night:
-			self.Farbe = Farben_Auto[4]
+			self.Farbe = self.zustand(4)
 			return
 
 		if self.zustand == 3:
@@ -56,6 +56,7 @@ class Fuß_ampel(object):
 		self.Farbe = Farben_Fuß[Start_pose]
 		self.update_thread = Thread(target=self.update)
 		self.schalten_thread = Thread(target=self.auto_schalten)
+		self.beat_thread = Thread(target=self.schalt_beat)
 		self.update_thread.start()
 		self.schalten_thread.start()
 
@@ -67,7 +68,7 @@ class Fuß_ampel(object):
 
 	def schalt_beat(self):
 		while True:
-			sleep(2)
+			sleep(4)
 			sleep(random.uniform(0.0002, 0.0005))
 			tick_fuß.set()
 
@@ -100,11 +101,11 @@ def user_interface():
 	elif inti_art == "M":
 		for _ in range(4): 
 			Name_ampel = input(f"Name der Auto_Ampel_{_+1}: ")
-			startzustand = input(f"{Name_ampel}s Start Position ('0' für gruen, '2' für rot): ")
+			startzustand = int(input(f"{Name_ampel}s Start Position ('0' für gruen, '2' für rot): "))
 			Name_ampel = Auto_ampel(startzustand)
 		for _ in range(4): 
 			Name_ampel = input(f"Name der Fuß_Ampel_{_+1}: ")
-			startzustand = input(f"{Name_ampel}s Start Position ('0' für gruen. '1' für rot): ")
+			startzustand = int(input(f"{Name_ampel}s Start Position ('0' für gruen. '1' für rot): "))
 			Name_ampel = Fuß_ampel(startzustand)
 user_interface()
 
